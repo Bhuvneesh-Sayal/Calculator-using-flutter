@@ -13,18 +13,18 @@ class Calculator extends StatelessWidget{
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Calculator',
-      theme: ThemeData(primarySwatch: Colors.blue),
-      home: SimpleCalculator(),
+      theme: ThemeData(primarySwatch: Colors.lightBlue),
+      home: Calc(),
     );
   }
 }
 
-class SimpleCalculator extends StatefulWidget {
+class Calc extends StatefulWidget {
   @override
-  _SimpleCalculatorState createState() => _SimpleCalculatorState();
+  _CalcState createState() => _CalcState();
 }
 
-class _SimpleCalculatorState extends State<SimpleCalculator> {
+class _CalcState extends State<Calc> {
 
   String equation = "0";
   String result = "0";
@@ -34,7 +34,7 @@ class _SimpleCalculatorState extends State<SimpleCalculator> {
 
   buttonPressed(String buttonText){
     setState(() {
-      if(buttonText=="C"){
+      if(buttonText=="AC"){
         equation="0";
         result="0";
         equationFontSize=40.0;
@@ -57,6 +57,7 @@ class _SimpleCalculatorState extends State<SimpleCalculator> {
         expression=equation;
         expression=expression.replaceAll('×', '*');
         expression=expression.replaceAll('÷', '/');
+        expression=expression.replaceAll('√', 'sqrt');
 
         try{
           Parser p = new Parser();
@@ -84,7 +85,7 @@ class _SimpleCalculatorState extends State<SimpleCalculator> {
 
   Widget buildButton(String buttonText, double buttonHeight, Color buttonColor){
     return  Container(
-      height: MediaQuery.of(context).size.height*0.1*buttonHeight,
+      height: MediaQuery.of(context).size.height*0.075*buttonHeight,
       color: buttonColor,
       child: FlatButton(
           shape: RoundedRectangleBorder(
@@ -95,12 +96,12 @@ class _SimpleCalculatorState extends State<SimpleCalculator> {
                   style: BorderStyle.solid
               )
           ),
-          padding: EdgeInsets.all(16.0),
+          padding: EdgeInsets.all(14.0),
           onPressed: () => buttonPressed(buttonText),
           child: Text(
             buttonText,
             style: TextStyle(
-                fontSize: 32.0,
+                fontSize: 25.0,
                 fontWeight: FontWeight.normal,
                 color: Colors.white
             ),
@@ -112,19 +113,19 @@ class _SimpleCalculatorState extends State<SimpleCalculator> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text('Simple Calculator')),
+      appBar: AppBar(title: Text('Calculator')),
       body: Column(
         children: <Widget>[
 
           Container(
             alignment: Alignment.centerRight,
-            padding: EdgeInsets.fromLTRB(10, 20, 20, 0),
+            padding: EdgeInsets.fromLTRB(10, 10, 10, 0),
             child: Text(equation, style: TextStyle(fontSize: equationFontSize),),
           ),
 
           Container(
             alignment: Alignment.centerRight,
-            padding: EdgeInsets.fromLTRB(10, 20, 20, 0),
+            padding: EdgeInsets.fromLTRB(10, 10, 10, 0),
             child: Text(result, style: TextStyle(fontSize: resultFontSize),),
           ),
 
@@ -141,10 +142,9 @@ class _SimpleCalculatorState extends State<SimpleCalculator> {
                   children: [
                     TableRow(
                       children: [
-                        buildButton("C", 1, Colors.green),
+                        buildButton("AC", 1, Colors.green),
                         buildButton("⌫", 1, Colors.blueAccent),
                         buildButton("÷", 1, Colors.blueAccent),
-
                       ]
                     ),
 
@@ -177,9 +177,18 @@ class _SimpleCalculatorState extends State<SimpleCalculator> {
 
                     TableRow(
                         children: [
-                          buildButton(".", 1, Colors.blueGrey),
+                          buildButton(".", 1, Colors.blueAccent),
                           buildButton("0", 1, Colors.blueGrey),
-                          buildButton("00", 1, Colors.blueGrey),
+                          buildButton("^", 1, Colors.blueAccent),
+
+                        ]
+                    ),
+
+                    TableRow(
+                        children: [
+                          buildButton("(", 1, Colors.blueAccent),
+                          buildButton(")", 1, Colors.blueAccent),
+                          buildButton("%", 1, Colors.blueAccent),
 
                         ]
                     ),
@@ -206,6 +215,12 @@ class _SimpleCalculatorState extends State<SimpleCalculator> {
                     TableRow(
                         children: [
                           buildButton("-", 1, Colors.blueAccent),
+                        ]
+                    ),
+
+                    TableRow(
+                        children: [
+                          buildButton("√", 1, Colors.blueAccent),
                         ]
                     ),
 
