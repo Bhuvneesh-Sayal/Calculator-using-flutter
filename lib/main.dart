@@ -192,6 +192,15 @@ class _CalcState extends State<Calc> {
 
                         ]
                     ),
+
+                    TableRow(
+                        children: [
+                          buildButton("sin", 1, Colors.blueAccent),
+                          buildButton("cos", 1, Colors.blueAccent),
+                          buildButton("tan", 1, Colors.blueAccent),
+
+                        ]
+                    ),
                   ],
                 ),
               ),
@@ -221,6 +230,12 @@ class _CalcState extends State<Calc> {
                     TableRow(
                         children: [
                           buildButton("√", 1, Colors.blueAccent),
+                        ]
+                    ),
+
+                    TableRow(
+                        children: [
+                          buildButton("ln", 1, Colors.blueAccent),
                         ]
                     ),
 
